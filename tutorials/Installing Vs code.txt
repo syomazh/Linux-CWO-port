@@ -1,0 +1,58 @@
+===================================
+Visual Studio Code Installation Guide
+For NVIDIA Jetson Orin Nano
+===================================
+
+1. PREREQUISITES
+- Jetson Orin Nano with JetPack 6.2+
+- Active internet connection
+- sudo privileges
+
+2. INSTALLATION STEPS
+
+1. Launch Terminal:
+   - Keyboard shortcut: Ctrl+Alt+T
+   - Or right-click desktop → "Open Terminal"
+
+2. Update package lists:
+   sudo apt update
+
+3. Download latest ARM64 package:
+   wget -N -O vscode-linux-deb.arm64.deb \
+   https://update.code.visualstudio.com/latest/linux-deb-arm64/stable
+
+4. Install the package:
+   sudo apt install ./vscode-linux-deb.arm64.deb
+
+5. Verify installation:
+   - Terminal: Run `code --version`
+   - Desktop: Check Applications menu
+
+3. LAUNCHING VS CODE
+
+Terminal method:
+code [optional-project-folder]
+
+Desktop method:
+- Click Applications menu
+- Search for "Visual Studio Code"
+
+4. RECOMMENDED EXTENSIONS
+- C/C++ (Microsoft)
+- CMake Tools
+- Python
+- CUDA Toolkit (NVIDIA)
+
+5. TROUBLESHOOTING
+
+If 'code' command not found:
+- Reboot system
+- Check install location:
+  which code
+
+If dependency errors occur:
+sudo apt --fix-broken install
+
+For ARM64-specific issues:
+- Ensure you downloaded ARM64 build
+- Check NVIDIA forums for JetPack compatibility

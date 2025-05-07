@@ -1,0 +1,15 @@
+to compile to program 
+
+	cd "project directory" e.g.~/Desktop/refraction/cwo-0.32/src
+
+	cd build
+	rm -rf *
+	cmake .. -DCMAKE_BUILD_TYPE=Release
+
+if you want to compile without seeing the big list of code notation warnings and want to  see only actual errors run:
+
+	make -j$(nproc) 2>&1 | grep -i 'error'
+
+to compile and see all outputs run:
+
+	make -j$(nproc) 2>&1 | grep -i 'error'

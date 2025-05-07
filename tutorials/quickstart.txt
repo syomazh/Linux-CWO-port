@@ -1,0 +1,78 @@
+==========================================
+CWO Project Build and Execution Guide
+For Jetson Orin Nano (CUDA 12.6)
+==========================================
+
+1. PREREQUISITES
+----------------
+- JetPack 6.2 installed
+- CUDA 12.6 working (verify with nvcc --version)
+- FFTW3 library installed:
+  sudo apt install libfftw3-dev
+
+2. BUILD INSTRUCTIONS
+---------------------
+# Navigate to project
+cd ~/Desktop/refraction/cwo-0.32/src
+
+# Clean previous builds
+rm -rf build CMakeCache.txt CMakeFiles/
+
+# Create fresh build directory
+mkdir build && cd build
+
+# Configure with CMake
+cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc \
+  -DCMAKE_CUDA_ARCHITECTURES=87
+
+# Compile (silent mode - shows only errors)
+make -j$(nproc) 2>&1 | grep -i 'error'
+
+# Alternative: Verbose compile
+# make -j$(nproc)
+
+3. AVAILABLE EXECUTABLES
+-----------------------
+After successful build, these executables will be available:
+- ./cwo_app      (main cwo executable)
+- ./cwo_test     (test program)
+- ./gwo_app      (gwo executable)
+
+4. RUNNING PROGRAMS
+------------------
+# Run main application
+./cwo_app
+
+# Run test program
+./cwo_test
+
+# Run with GPU monitoring
+nvprof ./cwo_app
+
+5. TROUBLESHOOTING
+-----------------
+Q: Getting "No targets specified" error?
+A: Verify CMakeLists.txt contains:
+   add_executable(cwo_app cwo.cpp)
+   target_link_libraries(cwo_app PRIVATE cwo)
+
+Q: CUDA not detected?
+A: Verify nvcc is in PATH:
+   echo $PATH | grep cuda
+   If missing, add:
+   export PATH=/usr/local/cuda/bin:$PATH
+
+Q: Getting architecture warnings?
+A: Explicitly set in CMake:
+   -DCMAKE_CUDA_ARCHITECTURES=87
+
+6. CLEAN BUILD
+-------------
+To completely rebuild:
+cd ~/Desktop/refraction/cwo-0.32/src
+rm -rf build
+mkdir build && cd build
+cmake .. [options as above]
+make -j$(nproc)

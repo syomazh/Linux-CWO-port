@@ -1,0 +1,12 @@
+1) open terminal
+
+2)
+sudo apt update
+
+3)
+wget -N -O vscode-linux-deb.arm64.deb https://update.code.visualstudio.com/latest/linux-deb-arm64/stable
+
+4)
+sudo apt install ./vscode-linux-deb.arm64.deb
+
+5) vs code is downlaoded. type "code" in terminal to launch vs code or find it your apps list
